@@ -110,7 +110,6 @@ def calculate_average(*args, **kwargs):
         sum += arg
         Count = i + 1
     return Count, round(sum / Count, 3)
-# test
 
 
 print(calculate_average(1, 2.1, 3.123, 4.070001, 5, round_to=3))
