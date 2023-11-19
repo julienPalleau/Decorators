@@ -22,7 +22,6 @@ def greet(name="stranger"):
 greet()
 greet('Julien')
 
-
 # --------------------------------------------------------
 """
 Skill Challenge: Averaging Grades define a new function called calculate_average
@@ -93,7 +92,6 @@ def func(*args, **kwargs):
 
 func(1, 2, 3, name="Lisa Bohn", country="Germany")
 
-
 # --------------------------------------------------------
 """
 Skill Challenge: Variadics
@@ -103,16 +101,20 @@ Calculate_average[1, 2, 3, 4, 5] # Count: 5, Average: 3.0 calculate_average(1, 2
 """
 
 
-def calculate_average(*args, **kwargs):
-    sum = 0
-    Count = 0
-    for i, arg in enumerate(args):
-        sum += arg
-        Count = i + 1
-    return Count, round(sum / Count, 3)
+def calculate_average(*args, round_to=2):
+    if not args:
+        print("No numbers provided")
+        return None
+
+    total_sum = sum(args)
+    count = len(args)
+    average = total_sum / count
+    round_average = round(average, round_to)
+
+    print(f"Count: {count}, Average: {round_average}")
+    return average
 
 
 print(calculate_average(1, 2.1, 3.123, 4.070001, 5, round_to=3))
-
 
 # --------------------------------------------------------
