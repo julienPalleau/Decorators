@@ -356,3 +356,33 @@ def calculate_sum(a, b):
 
 print("\n")
 calculate_sum(3, 6)
+
+# --------------------------------------------------------
+"""
+Skill Challenge - Lotto Draws
+
+Define a decorator called 'repeat' that invockes a function of variable/unknown arity twice then, define a function called 'lotto_draw' that takes a start and end number as 
+arguments and returns a number that is randomly drawn from that range (inclusively) decorate 'lotto_draw' with 'repeat' to get 2 ranom numbers
+"""
+
+print("\n")
+
+
+def repeat(func):
+    def wrapper(*args, **kwargs):
+        func(*args, **kwargs)
+        func(*args, **kwargs)
+
+    return wrapper
+
+
+from random import randint
+
+
+@repeat
+def lotto_draw(start_number, end_number):
+    number = randint(start_number, end_number)
+    print(f"Randomly drawn number: {number}")
+
+
+lotto_draw(1, 49)
