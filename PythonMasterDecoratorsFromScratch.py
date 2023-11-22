@@ -386,3 +386,71 @@ def lotto_draw(start_number, end_number):
 
 
 lotto_draw(1, 49)
+
+# --------------------------------------------------------
+"""
+Skill Challenge - Writing A Timer
+
+Define a decorator called 'timed' that measures the amount of time a given function takes to run and prints that out in seconds then, define a function that takes some number of 
+seconds to run (e.g. a long loop) and rdecorate it with 'timed'
+"""
+import time
+
+
+# Solution 1
+def timed(func):
+    def wrapper(*args, **kwargs):
+        start_time = time.perf_counter()
+        result = func(*args, **kwargs)
+        end_time = time.perf_counter()
+
+        print(f"Solution 1: Function {func.__name__} took {round(end_time - start_time, 4)} seconds to execute.")
+        return result
+
+    return wrapper
+
+
+# Solution 2
+def timed(func):
+    def wrapper(*args, **kwargs):
+        start_time = time.perf_counter()
+        func(*args, **kwargs)
+        end_time = time.perf_counter()
+
+        print(f"Solution 2: Function({func.__name__}) took {round(end_time - start_time, 4)} seconds to execute.")
+        return func(*args, **kwargs)
+
+    return wrapper
+
+
+@timed
+def loop_this_many_times(n=10 ** 8):
+    for i in range(n):
+        pass
+
+
+loop_this_many_times()
+
+# --------------------------------------------------------
+"""
+Decorators With Arguments
+"""
+
+
+def ensure_healthy_workout(func):
+    def wrapper(*args, **kwargs):
+        result = func(*args, **kwargs)
+        if result < 500:
+            print("This workout was not intense enough!")
+        else:
+            print(f"Well done! Target exceeded by {result - 500} calories")
+
+    return wrapper
+
+
+@ensure_healthy_workout
+def calories_burned(duration_in_minutes, calories_burned_per_minute):
+    return duration_in_minutes * calories_burned_per_minute
+
+
+calories_burned(30, 10)
