@@ -454,3 +454,27 @@ def calories_burned(duration_in_minutes, calories_burned_per_minute):
 
 
 calories_burned(30, 10)
+
+
+# now let's try something more flexible where we can pass as argument the calories_target
+def ensure_healthy_workout(calories_target):
+    def actual_decorator(func):
+        def wrapper(*args, **kwargs):
+            result = func(*args, **kwargs)
+            if result < calories_target:
+                print("This workout was not intense enough!")
+            else:
+                print(f"Well done! Target exceeded by {result - calories_target} calories")
+
+        return wrapper
+
+    return actual_decorator
+
+
+@ensure_healthy_workout(calories_target=700)
+def calories_burned(duration_in_minutes, calories_burned_per_minute):
+    return duration_in_minutes * calories_burned_per_minute
+
+
+print("\n")
+calories_burned(30, 30)
