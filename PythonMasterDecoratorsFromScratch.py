@@ -1,4 +1,4 @@
-# W:\Perso\backup\IT stuff\Cours de programmation\Python\Udemy - Intermediate Python Master Decorators From Scratch
+# # W:\Perso\backup\IT stuff\Cours de programmation\Python\Udemy - Intermediate Python Master Decorators From Scratch
 def greet():
     return "Hello, there!"
 
@@ -77,7 +77,7 @@ print("\n")
 introduce(name="Jane Bistro", age=27, country="USA")
 """
 *args -> positional args
-**kwargs -> keyworded args 
+**kwargs -> keyworded args
 """
 
 
@@ -99,7 +99,7 @@ func(1, 2, 3, name="Lisa Bohn", country="Germany")
 """
 Skill Challenge: Variadics
 modify the calculate_average function so it accepts a variable number of positional arguments, instead of a single python list.
-In addition, add an optional keyword argument called "round_to", which should accept an integer and round the average to that many decimal places before returning it. 
+In addition, add an optional keyword argument called "round_to", which should accept an integer and round the average to that many decimal places before returning it.
 Calculate_average[1, 2, 3, 4, 5] # Count: 5, Average: 3.0 calculate_average(1, 2.1, 3.123, 4.070001, 5, round_to=3) # Count: 5, Average: 3.059
 """
 
@@ -227,8 +227,8 @@ def make_multiplier(x):
 
 times_two = make_multiplier(2)
 times_three = make_multiplier(3)
-times_three(4)
-times_two(7)
+print(times_three(4))
+print(times_two(7))
 
 # --------------------------------------------------------
 """
@@ -237,7 +237,7 @@ Define a function called 'create_counter' that returns a 'counter' function that
 
 The 'counter' function should increment the count each time it is called, before returning it.
 
-As a bonus, implement 'create_counter' so that it takes a parameter called 'start' that determines the starting count for the counter it returns, if no start value is provided, 
+As a bonus, implement 'create_counter' so that it takes a parameter called 'start' that determines the starting count for the counter it returns, if no start value is provided,
 'start' should default to 1
 """
 
@@ -361,7 +361,7 @@ calculate_sum(3, 6)
 """
 Skill Challenge - Lotto Draws
 
-Define a decorator called 'repeat' that invockes a function of variable/unknown arity twice then, define a function called 'lotto_draw' that takes a start and end number as 
+Define a decorator called 'repeat' that invockes a function of variable/unknown arity twice then, define a function called 'lotto_draw' that takes a start and end number as
 arguments and returns a number that is randomly drawn from that range (inclusively) decorate 'lotto_draw' with 'repeat' to get 2 ranom numbers
 """
 
@@ -391,7 +391,7 @@ lotto_draw(1, 49)
 """
 Skill Challenge - Writing A Timer
 
-Define a decorator called 'timed' that measures the amount of time a given function takes to run and prints that out in seconds then, define a function that takes some number of 
+Define a decorator called 'timed' that measures the amount of time a given function takes to run and prints that out in seconds then, define a function that takes some number of
 seconds to run (e.g. a long loop) and rdecorate it with 'timed'
 """
 import time
@@ -478,3 +478,199 @@ def calories_burned(duration_in_minutes, calories_burned_per_minute):
 
 print("\n")
 calories_burned(30, 30)
+
+# --------------------------------------------------------
+"""
+Skill Challenge - Repeated Lotto Draws
+"""
+
+
+def repeat(num_times):
+    def actual_decorator(func):
+        def wrapper(*args, **kwargs):
+            result = []
+            for _ in range(num_times):
+                result.append(func(*args, **kwargs))
+            return (sorted(result))
+
+        return wrapper
+
+    return actual_decorator
+
+
+import random
+
+
+@repeat(num_times=7)
+def lotto_draw(start, end):
+    return random.randint(start, end)
+
+
+print("\n")
+print(lotto_draw(1, 49))
+
+# --------------------------------------------------------
+"""
+Chaining Multiple Decorators
+"""
+
+
+# available decorators
+
+def uppercase(func):
+    def wrapper():
+        result = func()
+        return result.upper()
+
+    return wrapper
+
+
+def split(func):
+    def wrapper():
+        result = func()
+        return result.split()
+
+    return wrapper
+
+
+"""
+The way to read the the chained operator is from the closest to the function up to the farest so here: @uppercase -> @split. In addition the order of operators call, in the
+example above @split @uppercase it works while
+@uppercase @split won't work as split as no upper method: "Horizontal Omit Station Reflection".split().upper() => AttributeError: 'list' object has no attrivute 'upper'
+"""
+
+
+# target function
+@split
+@uppercase
+def passphrase():
+    return "Horizontal Omit Station Reflection"
+
+
+print("\n")
+print(passphrase())
+
+# --------------------------------------------------------
+"""
+Preserving Identify With @wraps
+"""
+
+
+def split(func):
+    def wrapper():
+        result = func()
+        return result.split()
+
+    return wrapper
+
+
+def passphrase():
+    """Returns a string."""
+    print("Horizontal Omit Station Reflection")
+
+
+print("\n")
+print(passphrase)
+print(passphrase.__name__)
+print(passphrase.__doc__)
+
+"""
+Now if we use a decorator we are going to loose information (name and doc)
+"""
+
+
+@split
+def passphrase():
+    """Returns a string."""
+    return "Horizontal Omit Station Reflection"
+
+
+print("We loose information")
+print(passphrase())
+print(passphrase.__name__)
+print(passphrase.__doc__)
+
+"""
+In order to not loose information we use functools.
+The python best practice is to always use it.
+"""
+from functools import wraps
+
+
+def split(func):
+    @wraps(func)
+    def wrapper():
+        result = func()
+        return result.split()
+
+    return wrapper
+
+
+@split
+def passphrase():
+    """Returns a string."""
+    return "Horizontal Omit Station Reflection"
+
+
+print("with functools module we don't loose anymore information")
+print(passphrase())
+print(passphrase.__name__)
+print(passphrase.__doc__)
+
+"""
+The bigger take away is that when we decorate functions we risk masking their identity and metadata in ways that can be confusing and problematic both for debugging and
+documentations purposes, so the func tool wraps utility is a convenient way to avoid that problem and it is considered best practice to use it when defining our own decorators
+in python.
+"""
+
+import uuid
+
+print(uuid.uuid4())
+
+# --------------------------------------------------------
+"""
+THIS only works in google collab not in an ide like pycharm
+Skill Challenge: Delaying Downloads
+Writte a placeholder function called 'download(user_id, resource)' that simulates the generation of a download link. For our purposes that could simply be a uuid() or a random
+alphanumeric string then define a decorator that progressively solows down the downloads for a given user by doubling the time it takes for the download link to be generated,
+e.g. the first infocation happens instantly, the second one takes 1 second, the third 2 second, the fourth 4 seconds, and so on. note that the delay should be user-specific,
+but not resource specific
+"""
+import time
+
+user_delay = {}
+
+
+def delay_decorator(func):
+    def wrapper(*args, **kwargs):
+        delay = user_delay.get(kwargs.get("user_id"), 0)
+        user_delay[kwargs.get("user_id")] = max(1, delay * 2)
+
+        if delay > 0:
+            print(f"Your download will start in {delay}s")
+
+        time.sleep(delay)
+        return func(*args, **kwargs)
+
+    return wrapper
+
+
+from uuid import uuid4
+
+
+@delay_decorator
+def download(user_id, resource):
+    download_uuid = uuid4()
+    download_url = f"andybek.com/{download_uuid}"
+
+    return f"Your resource is ready at: {download_url}"
+
+
+# When ran in google collab, you can run it multiple times and the sleep time get increased each time.
+print("\n")
+print(download(2, "python"))
+print(download(2, "python"))
+print(download(2, "python"))
+print(download(2, "python"))
+print(download(2, "python"))
+
