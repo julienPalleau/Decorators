@@ -629,7 +629,6 @@ print(uuid.uuid4())
 
 # --------------------------------------------------------
 """
-THIS only works in google collab not in an ide like pycharm
 Skill Challenge: Delaying Downloads
 Writte a placeholder function called 'download(user_id, resource)' that simulates the generation of a download link. For our purposes that could simply be a uuid() or a random
 alphanumeric string then define a decorator that progressively solows down the downloads for a given user by doubling the time it takes for the download link to be generated,
@@ -674,3 +673,79 @@ print(download(2, "python"))
 print(download(2, "python"))
 print(download(2, "python"))
 
+# --------------------------------------------------------
+"""
+Skill Challenge - Authentication Workflow PartI
+
+Mock an interface
+
+    write a basic function that exposes a menu with 3 options:
+
+    a. View Roster
+    b. Upvote
+    c. Add to Roseter
+    d. Quit
+
+...each of these options invokes their own respective functions, with the exception of 'Quit' which simply exits the menu.
+
+    'View Roster' prints a list of names and votes, in descending order by votes. For simplicity, this information is stored locally as a python list of dicts.
+    'Upvote' adds 1 vote to specified user
+    'Add to Roster' allows the user to add a new name to that list
+
+"""
+# application state ###
+ROSTER = [
+    {"name": "Alice", "votes": 12},
+    {"name": "Tyler", "votes": 9},
+    {"name": "Andrew", "votes": 10}
+]
+
+
+################
+
+def menu():
+    while True:
+        print("""
+    a. View Roster
+    b. Upvote
+    c. Add to Roster
+    d. Quit
+    """)
+
+        option = input("Enter option: ").lower()
+
+        if option == "a":
+            view_roster()
+        elif option == "b":
+            upvote()
+        elif option == "c":
+            add_to_roster()
+        else:
+            break
+
+
+def view_roster():
+    sorted_roster = sorted(ROSTER, key=lambda p: p["votes"], reverse=True)
+    for p in sorted_roster:
+        print(f"{p['name']}: {p['votes']}")
+
+
+def upvote():
+    name = input("Enter the name of the person to upvote: ").lower()
+
+    for p in ROSTER:
+        if p["name"].lower() == name:
+            p["votes"] += 1
+            print(f"Upvoted {p['name']}!")
+            return
+
+    print("Name was not found!")
+
+
+def add_to_roster():
+    name = input("Enter the name of the person to add: ")
+    ROSTER.append({"name": name, "votes": 0})
+    print(f"Added {name} to the roster!")
+
+
+menu()
