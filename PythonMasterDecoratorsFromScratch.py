@@ -700,8 +700,96 @@ ROSTER = [
     {"name": "Andrew", "votes": 10}
 ]
 
+################
+
+# def menu():
+#     while True:
+#         print("""
+#     a. View Roster
+#     b. Upvote
+#     c. Add to Roster
+#     d. Quit
+#     """)
+#
+#         option = input("Enter option: ").lower()
+#
+#         if option == "a":
+#             view_roster()
+#         elif option == "b":
+#             upvote()
+#         elif option == "c":
+#             add_to_roster()
+#         else:
+#             break
+#
+#
+# def view_roster():
+#     sorted_roster = sorted(ROSTER, key=lambda p: p["votes"], reverse=True)
+#     for p in sorted_roster:
+#         print(f"{p['name']}: {p['votes']}")
+#
+#
+# def upvote():
+#     name = input("Enter the name of the person to upvote: ").lower()
+#
+#     for p in ROSTER:
+#         if p["name"].lower() == name:
+#             p["votes"] += 1
+#             print(f"Upvoted {p['name']}!")
+#             return
+#
+#     print("Name was not found!")
+#
+#
+# def add_to_roster():
+#     name = input("Enter the name of the person to add: ")
+#     ROSTER.append({"name": name, "votes": 0})
+#     print(f"Added {name} to the roster!")
+#
+#
+# menu()
+
+# --------------------------------------------------------
+"""
+Skill Challenge - Authentication Workflow PartII
+
+@authd
+
+write a decorator called 'authd' which could be applied to any of the functions in our interface so as to require the user to be authenticated before the function is invoked
+
+apply that decorator to the 'Add to Roster' and 'Upvote' options in the menu
+
+Assume the authentication would be based on a username and password, which for simplicity could be stored as global variables.
+"""
+# application state ###
+ROSTER = [
+    {"name": "Alice", "votes": 12},
+    {"name": "Tyler", "votes": 9},
+    {"name": "Andrew", "votes": 10}
+]
+USERNAME = "admin"
+PASSWORD = "pwd"
+
+AUTHD_USER = set()
+
 
 ################
+def authd(func):
+    def wrapper(*args, **kwargs):
+        if USERNAME not in AUTHD_USER:
+            entered_username = input("Enter username: ")
+            entered_password = input("Enter password: ")
+
+            if entered_password != PASSWORD or entered_username != USERNAME:
+                print("Authentication failed!")
+                return
+
+            AUTHD_USER.add(entered_username)
+
+        func(*args, **kwargs)
+
+    return wrapper
+
 
 def menu():
     while True:
@@ -730,6 +818,7 @@ def view_roster():
         print(f"{p['name']}: {p['votes']}")
 
 
+@authd
 def upvote():
     name = input("Enter the name of the person to upvote: ").lower()
 
@@ -742,6 +831,7 @@ def upvote():
     print("Name was not found!")
 
 
+@authd
 def add_to_roster():
     name = input("Enter the name of the person to add: ")
     ROSTER.append({"name": name, "votes": 0})
