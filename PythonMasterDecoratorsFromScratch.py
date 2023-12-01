@@ -702,52 +702,52 @@ ROSTER = [
 
 ################
 
-# def menu():
-#     while True:
-#         print("""
-#     a. View Roster
-#     b. Upvote
-#     c. Add to Roster
-#     d. Quit
-#     """)
-#
-#         option = input("Enter option: ").lower()
-#
-#         if option == "a":
-#             view_roster()
-#         elif option == "b":
-#             upvote()
-#         elif option == "c":
-#             add_to_roster()
-#         else:
-#             break
-#
-#
-# def view_roster():
-#     sorted_roster = sorted(ROSTER, key=lambda p: p["votes"], reverse=True)
-#     for p in sorted_roster:
-#         print(f"{p['name']}: {p['votes']}")
-#
-#
-# def upvote():
-#     name = input("Enter the name of the person to upvote: ").lower()
-#
-#     for p in ROSTER:
-#         if p["name"].lower() == name:
-#             p["votes"] += 1
-#             print(f"Upvoted {p['name']}!")
-#             return
-#
-#     print("Name was not found!")
-#
-#
-# def add_to_roster():
-#     name = input("Enter the name of the person to add: ")
-#     ROSTER.append({"name": name, "votes": 0})
-#     print(f"Added {name} to the roster!")
-#
-#
-# menu()
+def menu():
+    while True:
+        print("""
+    a. View Roster
+    b. Upvote
+    c. Add to Roster
+    d. Quit
+    """)
+
+        option = input("Enter option: ").lower()
+
+        if option == "a":
+            view_roster()
+        elif option == "b":
+            upvote()
+        elif option == "c":
+            add_to_roster()
+        else:
+            break
+
+
+def view_roster():
+    sorted_roster = sorted(ROSTER, key=lambda p: p["votes"], reverse=True)
+    for p in sorted_roster:
+        print(f"{p['name']}: {p['votes']}")
+
+
+def upvote():
+    name = input("Enter the name of the person to upvote: ").lower()
+
+    for p in ROSTER:
+        if p["name"].lower() == name:
+            p["votes"] += 1
+            print(f"Upvoted {p['name']}!")
+            return
+
+    print("Name was not found!")
+
+
+def add_to_roster():
+    name = input("Enter the name of the person to add: ")
+    ROSTER.append({"name": name, "votes": 0})
+    print(f"Added {name} to the roster!")
+
+
+menu()
 
 # --------------------------------------------------------
 """
