@@ -219,6 +219,7 @@ def my_decorator3(func):
         print('---------')
         func(x)
         print('----------')
+
     return wrap_func
 
 
@@ -243,6 +244,7 @@ def my_decorator4(func):
         print('++++++++++')
         func(x, y)
         print('++++++++++')
+
     return wrap_func
 
 
@@ -251,7 +253,8 @@ def hello(greeting, emoji):
     print(greeting, emoji)
 
 
-hello('hoooo', ':)')
+a = my_decorator4(hello)
+a('hiiii', ':)')
 
 '''
 19'57''
@@ -261,5 +264,118 @@ default hi:
 def hello(greeting='hi', emoji):
     print(greeting, emoji)
     
-There is actually a patter here that we can use that makes things really simple for us and all we do is this we
+There is actually a pattern here that we can use that makes things really simple for us and all we do is this
+we do the star args (*args) wich we have seen wich takes all positional arguments and then star star keyword args (**kwargs)
+which takes all the keyword arguments and we call the function by saying star args (*args) to unpack all the positional
+arguments and star star key word args (**kwargs) to unpack all the keyword arguments.
+Now check this out I can do emoji equals to let's say sadface as the keyword argument and now if I just pass
+hi like this and hit run and let's just remove this as well since we don't need it we'll call hello properly because
+we have the decorator and click run look at that I get high with the sad face now the reason this is called a decorator
+it's because it's a famous pattern in programming it's called the decorator pattern and this:
+def my_decorator5(func):
+    def wrap_func(*args, **kwargs):
+        print('//////////')
+        func(*args, **kwargs)
+        print('//////////')
+    return wrap_func
+is the decorator pattern it gives our decorator flexibility so that we're able to pass as many arguments as we want into our
+wrapped function by using args and kwargs and then unpacking them like this: *args, **kwargs inside of a function
+and this syntax let's say if we didn't even have the print statements:
+ def my_decorator5(func):
+    def wrap_func(*args, **kwargs):
+        func(*args, **kwargs)
+    return wrap_func
+is why decorator are so powerful by just using these lines of code we're able to add functionality using the decorator
+pattern to decorate our functions and the decorator patterns are used all over programming so it's a very
+powerful concept 
+'''
+print()
+
+
+def my_decorator5(func):
+    def wrap_func(*args, **kwargs):
+        print('//////////')
+        func(*args, **kwargs)
+        print('//////////')
+
+    return wrap_func
+
+
+@my_decorator5
+def hello(greeting, emoji=':('):
+    print(greeting, emoji)
+
+
+hello('hiiii')
+
+'''
+To finish of the lesson on decorator I want to talk to you about some of the ways that decorators can be useful and
+some of the common locations that we're going to see decorator patterns in our code and we are going to build our own performance
+decorator that's going able to tell us how our functions perform how fast they are.
+
+So let's talk about some of the practical applications of decorators I mean we've already seen them in 
+classes right we saw how class method and static method we're able to create class methods and static methods
+on the class that the direct class can use and if you don't remember these just go back to those videos.
+But I want to show you one of my favorite examples of a decorator we're going to create our own what we're
+going to do is I want to have a performance decorator and by the way this decorator doesn't exist in python we're going
+to build it from scratch what I want to do is be able to have a performance decorator that I can use
+during testing my code to see how fast my code runs for example if I had a function let's say a long time that
+takes a long time to complete so I'm going to do a really long loop and say for i in range of let's say all these numbers
+and i'm just going to do a random calculation i times 5. This function I want to know how well it performs how many
+milliseconds it takes to complete this so how can we build that so first I'm ging to do something that we haven't talked
+about yet that we will something about modules in built-in modules so for now we're not going to talk about this too
+much but we're going to import the time module something called well time again something that we'll talk about in
+the module section of the course I'm essentially saying hey when I installed python or in my case when I'm using this
+pycharm it has access to this time if I ask for it and in this case I'm saying hey I want to use this time object
+or module that I get from python and in here we are going to create our decorator following the pattern we've learned
+I'm going to say define performance and performance is going to accept a function just like we've seen before
+and in here we'll have our wrapper so let's say wrapper function and wrapper function if you remember it's going
+to be flexible by taking in *args and **kwargs so that we can pass it however many parameters we want because we 
+don't know how this function how many parameters it's going to have and I want to be able to use performance
+on all my functions now in here first what we're going to do is we're going to have the result of the
+function be the function that we receive right here and then simply say run the function with *args and **kwargs
+and finally at the end of this I want to return the results and then finally we're going to return the wrapper
+so nothing we haven't seen before I could have just done return here or just ran the function but 
+I'll show you why I dit it this way in a second right now our function doesn't really do anything if I click run
+well nothing happens if I do long_time() and I run this function it just took a long time to run but that's 
+it nothing happens this is when we make things interesting we want to caluclate from
+the beginning of running this function to the end of running this function and we can use time module to do this
+I can create a variable time 1 for the start and simply say time so I'm running this time function
+that's going to start a time and say hey this initial time is going to be t1 and after this function our main
+function long_time() gets run I'm going to say t2 and say hey what's the time right now. 
+However much difference there is between  t2 and t1 is how long this part: (result = fn(*args, **kwargs)) took
+so all we do is say print an f string and say it took t2 minus t1 and this actually returns a millisecond
+and that's it I've wrapped my function with just this extra timepiece and then I'm printing as soon as we run the
+function how long it took so let's check it out if I now run my long time function right here and I click run
+all right it took 0.06 s to run.
+'''
+# Decorator
+from time import time
+
+
+def performance(fn):
+    def wrapper(*args, **kwargs):
+        t1 = time()
+        result = fn(*args, **kwargs)
+        t2 = time()
+        print(f'took {t2-t1} s')
+        return result
+    return wrapper
+
+
+@performance
+def long_time():
+    for i in range(100000000):
+        i * 5
+
+long_time()
+
+'''
+I now have this decorator (above) that I can give pretty much any function in my program
+and actually measure the performance of my function pretty useful right I could have this piece of code
+and before let's say I deploy my code or put my code out into the world. I can test how performant
+my functions are and maybe I can optimize things in different ways very very useful and I did that in just
+a few lines of codes now mind you this peformance decorator depends on the machine and how fast your 
+cpu and memory are on your computer so for what took me 19 seconds might take you a lot more or a lot less depending
+on your machine but this is a nice way to compare functions relatively.
 '''

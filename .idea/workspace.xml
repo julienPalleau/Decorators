@@ -5,12 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2b07e2c1-580d-420b-9c9b-f39fd379fcfb" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Analytix Circle/Tutorial 8 - Advanced Python - Decorators.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Decorators.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Decorators.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PythonMasterDecoratorsFromScratch.py" beforeDir="false" afterPath="$PROJECT_DIR$/Udemy/PythonMasterDecoratorsFromScratch.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Analytix Circle/Tutorial 8 - Advanced Python - Decorators.py" beforeDir="false" afterPath="$PROJECT_DIR$/Analytix Circle/Tutorial 8 - Advanced Python - Decorators.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,27 +27,27 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 4
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
   <component name="ProjectId" id="2YOpQiaCVp5BYIb20GiR3OAhiIg" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
     <option name="showMembers" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.Tutorial 8 - Advanced Python - Decorators (1).executor": "Run",
-    "Python.decorators.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/Users/MOTTIER LUCIE/Documents/GitHub/Functional-Programming/Tutorial 7 - Advanced Python - Functional Programming.py",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.Tutorial 8 - Advanced Python - Decorators (1).executor&quot;: &quot;Run&quot;,
+    &quot;Python.decorators.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/MOTTIER LUCIE/Documents/GitHub/Functional-Programming/Tutorial 7 - Advanced Python - Functional Programming.py&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\MOTTIER LUCIE\Documents\GitHub\Decorators\Udemy" />
